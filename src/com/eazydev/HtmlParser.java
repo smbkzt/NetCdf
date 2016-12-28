@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class HtmlParser {
-    public void parser(String url) {
+    public void parseIt(String url) {
         String urlToParse;
         int count = 0;
 
