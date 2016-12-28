@@ -18,37 +18,37 @@ public class HtmlParser {
         else urlToParse = url;
 
         // Получаем страницу
-        Document doc = null;
+        Document doc;
         try {
             doc = Jsoup.connect("" + urlToParse).get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            String title = doc.title();
+            System.out.println("___________________________");
+            System.out.println(title);
+            System.out.println("___________________________");
+            System.out.println("Files: ");
 
-        String title = doc.title();
-        System.out.println("___________________________");
-        System.out.println(title);
-        System.out.println("___________________________");
-        System.out.println("Files: ");
+            // Получаем все элементы из документа по тэгу
+            Elements links = doc.getElementsByTag("a");
+            for (Element link : links) {
+                String linkHref = link.attr("href");
+                String linkText = link.text();
 
-        // Получаем все элементы из документа по тэгу
-        Elements links = doc.getElementsByTag("a");
-        for (Element link : links) {
-            String linkHref = link.attr("href");
-            String linkText = link.text();
+                if (linkHref.endsWith(".nc")){
+                    count++;
+                    System.out.print(count + ") ");
 
-            if (linkHref.endsWith(".nc")){
-                count++;
-                System.out.print(count + ") ");
-
-                if (linkHref.startsWith("http")) {
-                    System.out.println(linkText + " " + linkHref);
-                }
-                else{
-                    String urlToDownload = urlToParse.substring(urlToParse.indexOf("h"), urlToParse.lastIndexOf("/")) + "/" + linkHref;
-                    System.out.println(linkText + " " + urlToDownload);
+                    if (linkHref.startsWith("http")) {
+                        System.out.println(linkText + " " + linkHref);
+                    }
+                    else{
+                        String urlToDownload = urlToParse.substring(urlToParse.indexOf("h"), urlToParse.lastIndexOf("/")) + "/" + linkHref;
+                        System.out.println(linkText + "\t" + urlToDownload);
+                    }
                 }
             }
+        }
+        catch (IOException e) {
+            System.out.println("Нерпавильный адресс!");
         }
     }
 }
