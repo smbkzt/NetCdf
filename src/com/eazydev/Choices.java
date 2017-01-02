@@ -12,13 +12,13 @@ public class Choices {
     public Choices(){
          __map = new HashMap<>();
          __parser = new HtmlParser();
-         __map.put("UniData.ucar.edu", "http://www.unidata.ucar.edu/software/netcdf/examples/files.html");
+         __map.put("unidata.ucar.edu", "http://www.unidata.ucar.edu/software/netcdf/examples/files.html");
          __map.put("people.sc.fsu.edu", "https://people.sc.fsu.edu/~jburkardt/data/netcdf/netcdf.html");
     }
 
     public void chooseIt(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Пожалуйста выберите желаемый ресурс:");
+        System.out.println("Выберите желаемый ресурс введя только цифру:");
         __map.forEach((site, link) ->{
             count++;
             System.out.print(count + ")" + " " + site + "\t");
@@ -28,15 +28,14 @@ public class Choices {
 
         switch (choice){
             case 1:
-                __parser.parseIt(__map.get("UniData.ucar.edu"));
+                __parser.parseIt(__map.get("unidata.ucar.edu"));
                 break;
             case 2:
                 __parser.parseIt(__map.get("people.sc.fsu.edu"));
                 break;
             default:
                 System.out.println("Неправильный ввод!");
-
+                break;
         }
-//        __map.forEach((site, link) -> System.out.println(site + "\t" + link));
     }
 }

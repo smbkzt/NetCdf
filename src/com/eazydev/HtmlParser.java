@@ -23,9 +23,9 @@ public class HtmlParser {
             doc = Jsoup.connect("" + urlToParse).get();
             String title = doc.title();
             System.out.println("___________________________");
-            System.out.println(title);
+            System.out.println("\t" + title);
             System.out.println("___________________________");
-            System.out.println("Files: ");
+            System.out.println("\nФайлы, найденные на выбранном ресурсе: \n");
 
             // Получаем все элементы из документа по тэгу
             Elements links = doc.getElementsByTag("a");
