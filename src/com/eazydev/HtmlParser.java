@@ -23,7 +23,7 @@ public class HtmlParser {
             doc = Jsoup.connect("" + urlToParse).get();
             String title = doc.title();
             System.out.println("___________________________");
-            System.out.println("\t" + title);
+            System.out.println(title);
             System.out.println("___________________________");
             System.out.println("\nФайлы, найденные на выбранном ресурсе: \n");
 
@@ -40,6 +40,9 @@ public class HtmlParser {
                     if (linkHref.startsWith("http")) {
                         System.out.println(linkText + " " + linkHref);
                     }
+                    else if (linkHref.startsWith("ftp")){
+                        System.out.println(linkText + " " + linkHref);
+                    }
                     else{
                         String urlToDownload = urlToParse.substring(urlToParse.indexOf("h"), urlToParse.lastIndexOf("/")) + "/" + linkHref;
                         System.out.println(linkText + "\t" + urlToDownload);
@@ -48,7 +51,7 @@ public class HtmlParser {
             }
         }
         catch (IOException e) {
-            System.out.println("Нерпавильный адресс!");
+            System.out.println("Недействительная ссылка!");
         }
     }
 }
