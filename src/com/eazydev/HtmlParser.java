@@ -72,7 +72,7 @@ public class HtmlParser {
             System.out.println("Для открытия файла введите номер: ");
             int answer = scanner.nextInt();
             reader = new Reader(map.get(String.valueOf(answer)));
-            reader.ReadWhole();
+            reader.readWholeFile();
         }
         catch (IOException e) {
             System.out.println("Недействительная ссылка!");
