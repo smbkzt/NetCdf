@@ -1,32 +1,29 @@
 package com.eazydev;
 import ucar.nc2.NetcdfFile;
+import ucar.nc2.dataset.NetcdfDataset;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- * Created by smbek on 17.01.2017.
- */
+
 public class Reader {
     String fileName;
-    NetcdfFile nc = null;
-    NetcdfFile  ncfile = null;
-    Scanner scaneer;
+    Scanner scanner;
 
 
     public Reader(String filePath){
         fileName = filePath;
-        scaneer = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
     public void ReadWhole(){
         NetcdfFile nc = null;
         try {
+            nc = NetcdfDataset.open(fileName, null);
+//            System.out.println("Краткое описание файла: " + nc.findGlobalAttribute("title").getStringValue());
 
-            nc = NetcdfFile.open(fileName);
-            System.out.println("Краткое опписание файла: " + nc.findGlobalAttribute("title").getStringValue());
             System.out.println("Хотите открыть файл полностью? д/н ");
-            String answer = scaneer.next();
+            String answer = scanner.next();
 
             if (answer.equals("д")){
                 System.out.println(nc);
@@ -34,7 +31,6 @@ public class Reader {
             else {
                 return;
             }
-
         }
         catch (IOException ioe) {
             System.out.println("При попытке открыть файл " + fileName + " произошла ошибка: " + ioe);
@@ -47,8 +43,5 @@ public class Reader {
                 System.out.println("При попытке закрыть файл " + fileName + " произошла ошибка: " + ioe);
             }
         }
-
     }
-
-
 }

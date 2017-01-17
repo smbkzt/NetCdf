@@ -47,7 +47,9 @@ public class Choices {
                 __parser.parseIt(__map.get("crudata.uea.ac.uk"));
                 break;
             default:
-                System.out.println("Неправильный ввод!");
+//                System.out.println("Неправильный ввод!");
+                Reader r = new Reader("http://www.unidata.ucar.edu/software/netcdf/examples/testrh.nc");
+                r.ReadWhole();
                 break;
         }
     }

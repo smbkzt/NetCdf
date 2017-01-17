@@ -47,21 +47,25 @@ public class HtmlParser {
 
                 if (linkHref.endsWith(".nc")){
                     count++;
-
                     System.out.print(count + ") ");
 
-                    if (linkHref.startsWith("http")) {
-                        System.out.println(linkText + " " + linkHref);
-                        map.put(""+count, linkHref);
+                    if (linkHref.startsWith("https")){
+                        String LinK = linkHref.replaceAll("https", "http");
+                        System.out.println(linkText + " " + LinK);
+                        map.put(String.valueOf(count), LinK);
                     }
-                    else if (linkHref.startsWith("ftp")){
+                    else if (linkHref.startsWith("http")) {
                         System.out.println(linkText + " " + linkHref);
-                        map.put(""+count, linkHref);
+                        map.put(String.valueOf(count), linkHref);
+                    }
+                    else if (linkHref.startsWith("ftp")){ // ftp ссылки не работают при чтении файлов
+                        System.out.println(linkText + " " + linkHref);
+                        map.put(String.valueOf(count), linkHref);
                     }
                     else{
                         String urlToDownload = urlToParse.substring(urlToParse.indexOf("h"), urlToParse.lastIndexOf("/")) + "/" + linkHref;
                         System.out.println(linkText + "\t" + urlToDownload);
-                        map.put(""+count, urlToDownload);
+                        map.put(String.valueOf(count), urlToDownload.replaceAll("https", "http"));
                     }
                 }
             }
