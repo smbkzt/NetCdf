@@ -5,8 +5,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HtmlParser {
+    private Map<String, String> map = new HashMap<>();
     public void parseIt(String url) {
         String urlToParse;
         int count = 0;
@@ -35,17 +38,21 @@ public class HtmlParser {
 
                 if (linkHref.endsWith(".nc")){
                     count++;
+
                     System.out.print(count + ") ");
 
                     if (linkHref.startsWith("http")) {
                         System.out.println(linkText + " " + linkHref);
+                        map.put(""+count, linkHref);
                     }
                     else if (linkHref.startsWith("ftp")){
                         System.out.println(linkText + " " + linkHref);
+                        map.put(""+count, linkHref);
                     }
                     else{
                         String urlToDownload = urlToParse.substring(urlToParse.indexOf("h"), urlToParse.lastIndexOf("/")) + "/" + linkHref;
                         System.out.println(linkText + "\t" + urlToDownload);
+                        map.put(""+count, urlToDownload);
                     }
                 }
             }
