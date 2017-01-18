@@ -1,4 +1,5 @@
 package com.eazydev;
+import org.jfree.ui.RefineryUtilities;
 import ucar.ma2.Array;
 import ucar.ma2.InvalidRangeException;
 import ucar.nc2.NCdumpW;
@@ -25,12 +26,14 @@ public class Reader {
         try {
             nc = NetcdfDataset.open(fileName, null);
 //            System.out.println("Краткое описание файла: " + nc.findGlobalAttribute("title").getStringValue());
-
-            System.out.println("Хотите открыть файл полностью? д/н ");
+//            System.out.println(nc.getDimensions().size());
+            System.out.println(nc);
+            System.out.println("---------------------------------");
+            System.out.println("Хотите построить диаграмму? д/н ");
+            System.out.println("---------------------------------");
             String answer = scanner.next();
 
             if (answer.equals("д")){
-                System.out.println(nc);
                 getData();
             }
             else {
@@ -51,12 +54,26 @@ public class Reader {
     }
 
     public void getData(){
-        String varName = "tas";
+        String varName = "data";
         Variable v = nc.findVariable(varName);
         if (null == v) return;
         try {
-            Array data = v.read("0, 0:120, 0:250");
-            NCdumpW.printArray(data, varName, System.out, null);
+            String dimensions = "0:70, 70, 50";
+            Array data = v.read(dimensions);
+//            System.out.println(data);
+//            NCdumpW.printArray(data, varName, System.out, null);
+
+            // Рисование диаграммы
+            JFreeChartClass chart = new JFreeChartClass("NetCDF reader" ,
+                        "Данные, считанные с выбранного файла", data);
+            chart.pack( );
+            RefineryUtilities.centerFrameOnScreen(chart);
+            chart.setVisible(true);
+
+            // Вывод всех данных
+//            for (int i = 0; i < data.getSize(); i++){
+//                System.out.println(data.getShort(i));
+//            }
 
         } catch (IOException ioe) {
             System.out.println(ioe);

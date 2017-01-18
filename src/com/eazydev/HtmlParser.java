@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class HtmlParser {
     private Map<String, String> map;
     private Reader reader;
-    Scanner scanner;
+    private Scanner scanner;
 
     public HtmlParser(){
         map = new HashMap<>();
@@ -59,7 +59,7 @@ public class HtmlParser {
                         map.put(String.valueOf(count), linkHref);
                     }
                     else if (linkHref.startsWith("ftp")){ // ftp ссылки не работают при чтении файлов
-                        System.out.println(linkText + " " + linkHref);
+                        System.out.println(linkText + " " + linkHref + " ftp ссылки недоступны для чтения");
                         map.put(String.valueOf(count), linkHref);
                     }
                     else{

@@ -59,6 +59,9 @@ public class Choices {
                 __sources.put("Special Sensor Microwave / Imager (SSM/I)", "http://research.jisao.washington.edu/data_sets/ssmi/nesdis/");
                 selectSource();
                 break;
+            default:
+                System.out.println("Неверный выбор!");
+                break;
         }
     }
 
